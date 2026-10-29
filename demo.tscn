@@ -1,0 +1,182 @@
+[gd_scene format=3 uid="uid://be8jd1o7m3h8n"]
+
+[ext_resource type="Texture2D" path="res://fixtures/sheet_v0.png" id="1_ltxyv"]
+[ext_resource type="Script" path="res://demo.gd" id="2_demo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1u56"]
+atlas = ExtResource("1_ltxyv")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4x36m"]
+atlas = ExtResource("1_ltxyv")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lymrw"]
+atlas = ExtResource("1_ltxyv")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i24dd"]
+atlas = ExtResource("1_ltxyv")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0aj6"]
+atlas = ExtResource("1_ltxyv")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3i1w"]
+atlas = ExtResource("1_ltxyv")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i01hf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1u56")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4x36m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lymrw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i24dd")
+}],
+"loop": 0,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d0aj6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3i1w")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bmhny"]
+
+[sub_resource type="AudioStreamWAV" id="AudioStreamWAV_sgb5f"]
+data = PackedByteArray(128, 130, 128, 126, 128)
+mix_rate = 8000
+
+[sub_resource type="Animation" id="Animation_35o8b"]
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["attack"]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.25),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [7],
+"method": &"attack_event"
+}]
+}
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Audio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": SubResource("AudioStreamWAV_sgb5f")
+}],
+"times": PackedFloat32Array(0.25)
+}
+tracks/3/use_blend = true
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Hitbox:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_tp7t0"]
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["idle"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xehsa"]
+_data = {
+&"attack": SubResource("Animation_35o8b"),
+&"idle": SubResource("Animation_tp7t0")
+}
+
+[node name="DemoCharacter" type="Area2D" unique_id=558528420]
+script = ExtResource("2_demo")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=184145171]
+sprite_frames = SubResource("SpriteFrames_i01hf")
+animation = &"attack"
+
+[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=1994692500]
+shape = SubResource("RectangleShape2D_bmhny")
+
+[node name="Audio" type="AudioStreamPlayer" parent="." unique_id=940389944]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=938659709]
+libraries/ = SubResource("AnimationLibrary_xehsa")

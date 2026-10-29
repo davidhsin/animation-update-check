@@ -1,0 +1,10 @@
+config_version=5
+
+[application]
+config/name="Animation Update Check — Beta Demo"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+
+[editor_plugins]
+enabled=PackedStringArray("res://addons/update_review/plugin.cfg")

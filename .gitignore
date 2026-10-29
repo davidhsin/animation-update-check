@@ -1,0 +1,4 @@
+.godot/
+.qa_results/
+*.import
+.DS_Store

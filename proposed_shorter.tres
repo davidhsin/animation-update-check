@@ -1,0 +1,44 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bor8ym5trxjqm"]
+
+[ext_resource type="Texture2D" path="res://fixtures/sheet_v0.png" id="1_h45s4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdo4t"]
+atlas = ExtResource("1_h45s4")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0ht3"]
+atlas = ExtResource("1_h45s4")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0qgy"]
+atlas = ExtResource("1_h45s4")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j80xq"]
+atlas = ExtResource("1_h45s4")
+region = Rect2(16, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wdo4t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j0ht3")
+}],
+"loop": 0,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s0qgy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j80xq")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 10.0
+}]
